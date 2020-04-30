@@ -36,7 +36,7 @@ export class ContactListComponent implements OnInit {
   deleteContact(contactId) {
     if (confirm('Do you want to delete the contact')) {
       this.contactService.deleteContactDeatails(contactId).subscribe((data: Contact) => {
-        
+        alert('Contact deleted successfully');
         this.getContactDetails();
       }, (error) => {
         console.log(error);

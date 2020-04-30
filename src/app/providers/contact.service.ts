@@ -63,9 +63,8 @@ export class ContactService {
   public deleteContactDeatails(id): Observable<any> {
     const index = this.contactDetails.findIndex(x => x.Id === id);
     const res = this.contactDetails.splice(index, 1);
-    alert(res);
     return of(true);
-    // return this.http.get(environment.API_URL + 'contact/${id}');
+    // return this.http.delete(environment.API_URL + 'contact/${id}');
   }
 
 }
