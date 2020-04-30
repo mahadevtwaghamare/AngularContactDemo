@@ -19,7 +19,7 @@ export class ContactDetailsFormComponent implements OnInit {
     this.contactId = +this.route.snapshot.params.id;
     this.contactForm = this.contactFormBuilder.group({
       FirstName: ['', [Validators.pattern('[a-zA-Z ]*$')]],
-      Email: ['', [Validators.required]],
+      Email: ['', [Validators.email]],
       LastName: ['', [Validators.pattern('[a-zA-Z ]*$')]],
       Phone: [''],
       IsActive: [''],
@@ -55,20 +55,24 @@ export class ContactDetailsFormComponent implements OnInit {
 
   /** Save contact details */
   addContactDetails() {
-    this.contact.FirstName = this.contactForm.controls.FirstName.value;
-    this.contact.LastName = this.contactForm.controls.LastName.value;
-    this.contact.Email = this.contactForm.controls.Email.value;
-    this.contact.Phone = this.contactForm.controls.Phone.value;
-    this.contact.IsActive = this.contactForm.controls.IsActive.value;
-    this.contact.Id = this.contactForm.controls.Id.value;
-    this.contactService.addContactDetails(this.contact).subscribe((success: boolean) => {
-      this.message = !this.contact.Id ? 'Contact added successfully' : 'Contact updated successfully';
-      setTimeout(() => {
-        this.message = '';
-        this.navigateToHome();
-      }, 3000);
-    }, (error) => {
-    });
+    if (this.contactForm.valid) {
+      this.contact.FirstName = this.contactForm.controls.FirstName.value;
+      this.contact.LastName = this.contactForm.controls.LastName.value;
+      this.contact.Email = this.contactForm.controls.Email.value;
+      this.contact.Phone = this.contactForm.controls.Phone.value;
+      this.contact.IsActive = this.contactForm.controls.IsActive.value;
+      this.contact.Id = this.contactForm.controls.Id.value;
+      this.contactService.addContactDetails(this.contact).subscribe((success: boolean) => {
+        this.message = !this.contact.Id ? 'Contact added successfully' : 'Contact updated successfully';
+        setTimeout(() => {
+          this.message = '';
+          this.navigateToHome();
+        }, 3000);
+      }, (error) => {
+      });
+    } else {
+      alert('Fill all the fields');
+    }
   }
 
 }

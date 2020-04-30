@@ -9,7 +9,6 @@
     <div class="col-md-12">
         <h4 class="text-center">{{ contactId ? 'Edit': 'Add' }} Contact Details</h4>
         <div>
-            <p class="alert alert-danger" *ngIf="isDuplicateRecord">Patient already exists with same details</p>
             <p class="alert alert-success" *ngIf="message">{{message}}</p>
     
         </div>
